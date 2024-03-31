@@ -1,0 +1,147 @@
+<section class="vh-100" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="assets/images/login.webp" alt="login form" class="img-fluid"
+                                style="border-radius: 1rem 0 0 1rem;height: 100%;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <form #f="ngForm" (ngSubmit)="loginaction(f)">
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">Logo</span>
+                                    </div>
+
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account
+                                    </h5>
+
+                                    <div class="form-outline mb-4">
+                                        <input name="email" ngModel matInput [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com"
+                                        type="email" class="form-control form-control-lg" />
+                                        <label class="form-label">Email address</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input [(ngModel)]="pt" name="password" ngModel password matInput [type]="hide ? 'password' : 'text'"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form2Example27">Password</label>
+                                    </div>
+
+                                    <div class="pt-1 mb-4">
+                                        <button class="btn btn-dark btn-lg btn-block" type="submit" name="login">Login</button>
+                                    </div>
+
+                                    <a class="small text-muted" href="#!">Forgot password?</a>
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a routerLink="/registration"
+                                            style="color: #393f81;">Register here</a></p>
+                                    <a href="#!" class="small text-muted">Terms of use.</a>
+                                    <a href="#!" class="small text-muted">Privacy policy</a>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<mat-card>
+    <form class="example-form" #f="ngForm" (ngSubmit)="loginaction(f)">
+        <h1>Login</h1>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <!-- <input name="email" ngModel matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                placeholder="Ex. pat@example.com" type="email"> -->
+            <input name="email" ngModel matInput [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com"
+                type="email">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+
+            <mat-label>Enter your password</mat-label>
+            <input [(ngModel)]="pt" name="password" ngModel password matInput [type]="hide ? 'password' : 'text'">
+            <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </a>
+
+            <mat-hint *ngIf="pt.length<8">
+                Password should bigger than 7 characters
+            </mat-hint>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <div class="row">
+            <div class="form-check col-md-6 text-sm-left text-center">
+            </div>
+            <div class="forgot col-md-6 text-sm-right text-center">
+                <a routerLink="/">Skip-></a>
+            </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" name="login">Login</button>
+        <p>Don't Have an Account ?<a routerLink="/registration">Create an account</a></p>
+    </form>
+</mat-card>
+
+
+
+
+<!-- <mat-card>
+    <div >
+        <h2>Sign In Now</h2>
+            <form #f= "ngForm" (ngSubmit)="loginaction(f)">
+                <div class="form-group">
+                  <label for="">Email</label>
+                  <input class="ggg"  name="email" ngModel placeholder="Enter your username" type="text">
+                  
+                  <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+                </div>
+                <div class="form-group">
+                  <label for="">Password</label>
+                  <input class="ggg" name="password" ngModel placeholder="Enter your password" type="password">
+                  <div class="pre-icon os-icon os-icon-fingerprint"></div>
+                </div>
+                <div class="d-sm-flex justify-content-between">
+                    <div class="form-check col-md-6 text-sm-left text-center">
+                        
+                    </div>
+                    
+                    <div class="forgot col-md-12 text-sm-right text-center">
+                        <a routerLink = "/forgot">forgot password?</a>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="form-check col-md-6 text-sm-left text-center">
+                        </div>
+                        <div class="forgot col-md-6 text-sm-right text-center">
+                            <a routerLink = "/">Skip-></a>
+                        </div>
+                    </div>
+                
+                    <button mat-raised-button color="primary"  type="submit" name="login">Sign In</button>
+                
+                
+              </form>
+
+
+
+
+            <p>Don't Have an Account ?<a routerLink="/registration">Create an account</a></p>
+    </div>
+</mat-card>
+ -->

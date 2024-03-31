@@ -1,0 +1,10 @@
+<div class="mb-5">
+    <img src="{{data[0].user.profil_pic}}" style="height: 50px;" alt="" srcset="">
+    {{data[0].user.full_name}}
+    <div class="card m-3">
+        <div class="container-fluid m-2 overflow-auto" [innerHTML]="data[0].post">
+        </div>
+    </div>
+    
+</div>
+

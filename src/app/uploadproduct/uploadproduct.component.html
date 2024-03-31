@@ -1,0 +1,89 @@
+<div class="gallery">
+  <h2 class="w3ls_head">Gallery</h2>
+    <form #ffile="ngForm" (ngSubmit)="product(ffile.value)" method="post" class="form-w3layouts">
+      <div class="basket">
+          <ul>
+            <li class="item item-heading">Item</li>
+            <li class="price">Price</li>
+            <li class="quantity">Minimum Quantity</li>
+          </ul>
+        <div class="basket-product">
+          <div class="item">
+
+
+            <div class="product-image ">
+              <!--                     <img *ngIf="product_pic"  class="dropdown-toggle" src="{{product_pic}}" alt="Click and uplod proudact pic" class="product-frame">
+ -->
+              <div *ngFor="let c of temp;let i=index">
+                <img *ngIf="temp" class="dropdown-toggle" src="{{c}}" alt="Click and uplod proudact pic" class="product-frame">
+              </div>
+
+            </div>
+            <div class="product-details">
+              <h1>Product Name</h1>
+              <input class="item-quantity" ngModel maxlength="32" size="32" name="product_name" class="form-control"
+                placeholder="Username">
+              <p><strong>Dital of product</strong></p>
+              <textarea ngModel name="product_details"></textarea>
+              <br>
+              <div class="product-image upload-btn1-wrapper ecc-name">
+
+                <div class="dropdown-toggle" class="product-frame" class=" bs-glyphicons">
+                  <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+                  <br>
+                  <h6>Click and uplod proudact pic</h6>
+                </div>
+                <input #file [(ngModel)]="product_pic" ngModel type="file" (change)="onFileChanged($event,file.files)"
+                  name="product_pic" id="file" placeholder="Profile Photo" accept="image/*" />
+
+              </div>
+
+
+            </div>
+          </div>
+          <h1>Rs</h1>
+          <input ngModel type="number" class="price" maxlength="32" size="32" name="price" placeholder="Price">
+
+          <div class="quantity">
+            <input ngModel name="quantity" type="number" placeholder="quantity" min="1" class="quantity-field">
+          </div>
+
+        </div>
+
+      </div>
+
+            <button type="submit" class="checkout-cta">Uplode</button>
+    </form>
+
+
+    <div class="clearfix"> </div>
+    <script src="js/lightbox-plus-jquery.min.js"> </script>
+</div>
+
+
+
+<div class="row p-2">
+  <div class="col d-flex my-2" *ngFor="let c of productlist.reverse()">
+      <div class="card" style="width: 18rem;" routerLink="/product" [queryParams]="{productID :c.productID }">
+        <div class="card-header text-center">{{c.product_name}}</div>
+        <img src="{{c.product_pic}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">{{c.product_details}}</p>
+        </div>
+      </div>
+  </div>
+</div>
+      <div *ngFor="let c of productlist.reverse()" class="card p-3">
+        <div routerLink="/product" [queryParams]="{productID :c.productID }" class="d-flex align-items-center">
+          <div class="image"> 
+            <img src="{{c.product_pic}}" class="rounded" width="155"> 
+          </div>
+          <div class="ml-3 w-100">
+            <h4 class="mb-0 mt-0">{{c.product_name}} </h4>
+            {{c.product_pic}}
+            <div class="button mt-2 d-flex flex-row align-items-center">
+
+            </div>
+          </div>
+        </div>
+      </div>

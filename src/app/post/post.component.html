@@ -1,0 +1,30 @@
+<label id="example-radio-group-label">Add your post</label>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="favoriteSeason">
+  <input *ngIf="favoriteSeason=='pic'" #file [(ngModel)]="aa" ngModel  (change)="onFileChanged($event,file.files)" name="aa"  type="file"  id="file" placeholder="Profile Photo" accept="image/*">
+  <input *ngIf="favoriteSeason=='video'" #file [(ngModel)]="aa" ngModel  (change)="onFileChanged($event,file.files)" name="aa"  type="file"  id="file" placeholder="Profile Photo" accept="video/*">
+  
+  <div *ngIf="favoriteSeason=='string'">
+    <textarea #text [(ngModel)]="aa"  ngModel></textarea>
+    <button (click)="add(text.value)">submit</button>
+  </div>
+  <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+    {{season}}
+  </mat-radio-button>
+</mat-radio-group>
+<div>Your favorite season is: {{favoriteSeason}}</div>
+
+<div *ngFor="let c of temp;let i=index">
+  <img *ngIf="arr[i]=='pic'" width="300px"   class="dropdown-toggle" src="{{c}}" alt="Click and uplod proudact pic" class="product-frame">
+  <video *ngIf="arr[i]=='video'" width="320" height="240" controls>
+    <source src="{{c}}">
+  Your browser does not support the video tag.
+  </video>
+  <p *ngIf="arr[i]=='string'">{{c}}</p>
+</div>
+<input [(ngModel)]="tag" ngModel type="text">
+<button *ngIf="arr.length!=0" (click)=uplod()>uplod</button>
+
+

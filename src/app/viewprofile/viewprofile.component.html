@@ -1,0 +1,211 @@
+<section class="h-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center  h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="rounded-top text-white d-flex flex-row"
+                        style="background-color: rgb(236, 236, 236); height:200px;">
+                        <div class="m-3" style="    position: absolute;">
+                            <button *ngIf="love==1" class="btn btn-outline-dark bg-danger">
+                                <i _ngcontent-ijm-c191="" aria-hidden="true" class="fa fa-heart ng-star-inserted px-1" style="color: red;"></i> 
+                                <a class="text-light">{{mach1=='Mach'?'😉you like eack other'+mach1:'Wate for mach'}}</a>
+                            </button>
+                            <button (click)="userLike()" *ngIf="love!=1" class="btn btn-outline-dark bg-dark">
+                                <i _ngcontent-ijm-c191="" aria-hidden="true" class="fa fa-heart ng-star-inserted px-1" style="color: rgb(129, 120, 120);"></i> 
+                                <a class="text-light">I like her/him</a>
+                            </button>
+                            <button routerLink="/personal_message" [queryParams]= "{userid:user[0].userID}" class="btn btn-outline-dark mx-2"> 
+                                Let's Chat
+                            </button>
+                        </div>
+                        
+                        <div class="ms-4 mt-5 d-flex flex-column">
+
+                            <img style="height: 150px; z-index: 1;" class="img-fluid img-thumbnail mt-4 mb-2"
+                                src="{{user[0].profil_pic}}" alt="Generic placeholder image">
+                            <button (click)="follow()" *ngIf="user[0].follow==0" type="button"
+                                class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                                Follow
+                            </button>
+                            <button (click)="unfollow()" *ngIf="user[0].follow==1" type="button"
+                                class="btn btn-outline-dark bg-danger" data-mdb-ripple-color="dark" style="z-index: 1;">
+                                Unfollow
+                            </button>
+                        </div>
+                        <div class="ms-3 text-dark" style="margin-top: 130px;">
+                            <h3>{{user[0].full_name}}</h3>
+                            <p>{{user[0].city}}</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <br>
+                        <br>
+                        <div class="d-flex justify-content-end text-center py-1">
+                            <div>
+                                <p class="mb-1 h5">{{allPost.length}}</p>
+                                <p class="small text-muted mb-0">Photos</p>
+                            </div>
+                            <div class="px-3" (click)="popup1()">
+                                <p *ngIf="thisuserFol.followers" class="mb-1 h5">{{thisuserFol.followers.length}}</p>
+                                <p class="small text-muted mb-0">Followers</p>
+                            </div>
+                            <div (click)="popup2()">
+                                <p *ngIf="thisuserFol.following" class="mb-1 h5">{{thisuserFol.following.length}}</p>
+                                <p class="small text-muted mb-0">Following</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 text-black">
+                        <div class="mb-5">
+                            <p class="lead fw-normal mb-1">About</p>
+                            <div class="p-4" style="background-color: #f8f9fa;">
+                                <p class="font-italic mb-1">{{user[0].interest}}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="lead fw-normal mb-0">Post</p>
+                            <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+                        </div>
+                        <div class="row g-2" *ngFor="let c of allPost;let index=index">
+                            <div routerLink="/viewpost" [queryParams]="{postID :c.sr_no}" class="col-12 card mb-2">
+                                <div class="card-header">
+                                    Post {{index}}
+                                </div>
+                                <div [innerHTML]="c.post">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal -->
+<div *ngIf="followerPopup!='d-none'"
+    style="width: 100vw;height: 100vh;backdrop-filter: blur(3px);z-index:2147483646;position:fixed;top: 0;left: 0;">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalScrollableTitle">Followers</h2>
+                <button (click)="popup1()" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h1>List of Users</h1>
+                    <ul class="list-group user-list">
+                        <li class="list-group-item" *ngFor="let user of followersList">
+                            <div *ngIf="user" routerLink="/viewprofile" [queryParams]="{userid:user.userID}"
+                                class="media row">
+                                <div class="col-3">
+                                    <img src="{{ user.profil_pic }}" class="mr-3" alt="User Image">
+                                </div>
+
+                                <div class="media-body col">
+                                    <h4 class="mt-0"><b>{{ user.full_name }}</b></h4>
+                                    <p>{{ user.email }}</p>
+                                </div>
+                            </div>
+                            <div *ngIf="!user">
+                                NoDataFound
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="popup1()" type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="followingPopup!='d-none'"
+    style="width: 100vw;height: 100vh;backdrop-filter: blur(3px);z-index:2147483646;position:fixed;top: 0;left: 0;">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalScrollableTitle">Followers</h2>
+                <button (click)="popup2()" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h1>List of Users</h1>
+                    <ul class="list-group user-list">
+                        <li class="list-group-item" *ngFor="let user of followingList">
+                            <div *ngIf="user" routerLink="/viewprofile" [queryParams]="{userid:user.userID}"
+                                class="media row">
+                                <div class="col-3">
+                                    <img src="{{ user.profil_pic }}" class="mr-3" alt="User Image">
+                                </div>
+
+                                <div class="media-body col">
+                                    <h4 class="mt-0"><b>{{ user.full_name }}</b></h4>
+                                    <p>{{ user.email }}</p>
+                                </div>
+                            </div>
+                            <div *ngIf="!user">
+                                NoDataFound
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="popup2()" type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w3layouts-glyphicon">
+    <div class="grid_3 grid_4">
+        <div class="container mt-5 d-flex justify-content-center">
+            <div class="card p-3">
+                <div class="d-flex align-items-center">
+                    <div class="image"> <img src="{{user[0].profil_pic}}" class="rounded" width="155"> </div>
+                    <div class="ml-3 w-100">
+                        <h4 class="mb-0 mt-0">{{user[0].full_name}} </h4>{{followid.following}}
+
+                        <div class="button mt-2 d-flex flex-row align-items-center">
+                            <button class="btn btn-sm btn-outline-primary w-100">Chat</button>
+                            <button (click)="follow()" *ngIf="user[0].follow==0"
+                                class="btn btn-sm btn-primary w-100 ml-2">Follow</button>
+                            <button (click)="unfollow()" *ngIf="user[0].follow==1"
+                                style="background-color: rgb(209, 83, 83);color: aliceblue;"
+                                class="btn btn-sm  w-100 ml-2">Unfollow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngFor="let c of followid.following">
+    <h1>{{c}}</h1>
+    <br>
+</div>
+
+<div class="w3layouts-glyphicon">
+    <div class="grid_3 grid_4">
+        <div class="container mt-5 d-flex justify-content-center">
+            <div *ngFor="let c of products" class="card p-3">
+                <div routerLink="/product" [queryParams]="{productID :c.productID }" class="d-flex align-items-center">
+                    <div class="image"> <img src="{{c.product_pic}}" class="rounded" width="155"> </div>
+                    <div class="ml-3 w-100">
+                        <h4 class="mb-0 mt-0">{{c.product_name}} </h4>
+                        {{c.product_pic}}
+                        <div class="button mt-2 d-flex flex-row align-items-center">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<!-- hader -->
+<mat-toolbar class="sticky w-100 rounded bg-light shadow-lg text-darlk overflow-hidden mt-lg-1">
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <div fxLayout="row">
+      <button mat-button routerLink="/">
+        <mat-icon>home</mat-icon>
+        <span *ngIf="!deviceXs" class="logo">MeetMate</span>
+      </button>
+      <div *ngIf="!deviceXs && userdata[0]?.email!='guest'" fxLayout="row">
+        <button mat-button [matMenuTriggerFor]="favorite"><mat-icon mat-button matBadge="{{like_list.length}}"
+            mat-button matBadgeColor="warn">favorite</mat-icon></button>
+        <button mat-button [matMenuTriggerFor]="textsms"><mat-icon matBadge="{{pm_not.length}}" mat-button
+            matBadgeColor="warn"> textsms</mat-icon></button>
+        <button mat-button [matMenuTriggerFor]="noti"><mat-icon matBadge="{{notification.length}}" mat-button
+            matBadgeColor="warn">notifications_active</mat-icon></button>
+      </div>
+    </div>
+    <mat-form-field class="example-form-field w-50 h-100 m-1 bg-light" style="display: inline-table;" appearance="fill">
+      <mat-label><mat-icon>search</mat-icon></mat-label>
+      <form #f="ngForm" (ngSubmit)="sear(f.value)">
+        <input name="search" placeholder="search" matInput type="text" [(ngModel)]="value">
+      </form>
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <div fxLayout="row">
+      <button *ngIf="deviceXs" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button *ngIf="!deviceXs && userdata[0]?.email!='guest'" mat-button [matMenuTriggerFor]="menu"
+        fxLayoutAlign="end">
+        <img style="width: 40px;height: 40px;border-radius: 100%;" src="{{userdata[0]?.profil_pic}}">
+      </button>
+      <button *ngIf="!deviceXs && userdata[0]?.email=='guest'" routerLink="/login" mat-button [matMenuTriggerFor]="menu"
+        fxLayoutAlign="end">
+        LogIn
+      </button>
+    </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row  *ngIf="deviceXs" fxLayoutAlign="space-between bg-dark end">
+    <div *ngIf="deviceXs && userdata[0]?.email!='guest'" fxLayout="row" style="margin-left: auto;margin-right: auto;">
+      <button mat-button [matMenuTriggerFor]="favorite"><mat-icon mat-button matBadge="{{like_list.length}}"
+          mat-button matBadgeColor="warn">favorite</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="textsms"><mat-icon matBadge="{{pm_not.length}}" mat-button
+          matBadgeColor="warn"> textsms</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="noti"><mat-icon matBadge="{{notification.length}}" mat-button
+          matBadgeColor="warn">notifications_active</mat-icon></button>
+    </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row style="bottom: 0;position: fixed; background-color: aqua;" *ngIf="deviceXs"
+    fxLayoutAlign="space-between bg-dark end">
+    <button mat-button routerLink="personal_message">
+      <mat-icon mat-line> mode_edit </mat-icon>
+      <!-- <div mat-line>creat group</div> -->
+    </button>
+    <button mat-button routerLink="/Uploadproduct">
+      <mat-icon mat-line>store</mat-icon>
+      <!-- <div mat-line>Product Uplod</div> -->
+    </button>
+    <button mat-button routerLink="chat">
+      <mat-icon mat-line>chat</mat-icon>
+      <!-- <div mat-line>Group chat</div> -->
+    </button>
+    <button mat-button routerLink="personal_message">
+      <mat-icon mat-line>messagee</mat-icon>
+      <!-- <div mat-line>personal messagee</div> -->
+    </button>
+    <button mat-button routerLink="creatgroup">
+      <mat-icon mat-line>group</mat-icon>
+      <!-- <div mat-line>creat group</div> -->
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+<!-- Menu Items -->
+<mat-menu #menu="matMenu" fxLayoutAlign="end">
+  <span class="username">{{userdata[0]?.full_name}}</span>
+  <button routerLink="/profile" mat-menu-item>
+    <mat-icon>assignment_ind</mat-icon>
+    profile
+  </button>
+  <button mat-menu-item>
+    <mat-icon>assignment_turned_in</mat-icon>
+    log
+  </button>
+  <button (click)="logout()" routerLink="/login" mat-menu-item>
+    <mat-icon>assignment_return</mat-icon>
+    logout
+  </button>
+</mat-menu>
+<mat-menu #favorite="matMenu">
+  <mat-list>
+    <div mat-subheader>Favorite</div>
+    <mat-list-item *ngFor="let c of like_list_data" routerLink="/product" [queryParams]="{productID :c.productID}">
+      <img mat-list-icon alt="avatar" src="{{c.product_pic}}">
+      <div mat-line>{{c.product_name}}</div>
+      <div mat-line>
+        <p style="width: 30ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{c.product_details}}</p>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+</mat-menu>
+<mat-menu #textsms="matMenu">
+  <mat-list>
+    <div mat-subheader>Personal Message</div>
+    <mat-list-item *ngFor="let c of pm_not" routerLink="personal_message" [queryParams]="{userid:c.userID}">
+      <img mat-list-icon alt="avatar" src="{{c.profil_pic}}">
+      <div mat-line>{{c.full_name}}</div>
+      <div mat-line>
+        {{c.time|date}}
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+</mat-menu>
+<mat-menu #noti="matMenu">
+
+  <mat-list>
+    <div mat-subheader>Favorite</div>
+    <mat-list-item *ngFor="let c of notification" routerLink="/product" [queryParams]="{productID :c.productID}">
+      <img mat-list-icon alt="avatar" src="{{c.product_pic}}">
+      <div mat-line>{{c.product_name}}</div>
+      <div mat-line>
+        <p style="width: 30ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{c.product_details}}</p>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+</mat-menu>
+<!-- heder end -->
+<!-- side bar -->
+<article [class.content]="!deviceXs" [class.content-mob]="deviceXs" (scroll)="onScroll($event)">
+  <mat-toolbar>
+    <button type="button" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    {{Component1}}
+  </mat-toolbar>
+  <!--  start side bar content -->
+  <div class="container-fluid d-flex">
+    <div id="side" style="max-width: 200px;">
+      <mat-drawer style="position: inherit;height: calc(100vh - 190px);" class="rounded position-sticky"
+        *ngIf="userdata[0]?.email!='guest'" #drawer [mode]="deviceXs?'over':'side'" [opened]="deviceXs?false:true"
+        position="start" fxFlex="100" fxLayout="column" fxLayoutAlign="start space-between" [style.marginTop.px]="10"
+        [style.top.px]="sideBarScroll()">
+        <mat-list role="list" class="list-width">
+          <mat-list-item routerLink="/">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <div mat-line>Home</div>
+          </mat-list-item>
+          <mat-list-item routerLink="/Uploadproduct">
+            <mat-icon mat-list-icon>store</mat-icon>
+            <div mat-line>product</div>
+          </mat-list-item>
+          <mat-list-item routerLink="post">
+            <mat-icon mat-list-icon><span class="material-icons-outlined">
+                mode_edit
+              </span></mat-icon>
+            <div mat-line>Add a post</div>
+          </mat-list-item>
+          <mat-list-item routerLink="chat">
+            <mat-icon mat-list-icon>chat</mat-icon>
+            <div mat-line>Group chat</div>
+          </mat-list-item>
+          <mat-list-item routerLink="personal_message">
+            <mat-icon mat-list-icon>message</mat-icon>
+            <div mat-line>personal messagee</div>
+          </mat-list-item>
+          <mat-list-item routerLink="creatgroup">
+            <mat-icon mat-list-icon>group</mat-icon>
+            <div mat-line>creat group</div>
+          </mat-list-item>
+          <div style="bottom: 0;position: absolute;" class="w-100 text-center text-primary">
+            <a>
+              <h2><u>MeetMate</u></h2>
+            </a>
+          </div>
+
+        </mat-list>
+      </mat-drawer>
+    </div>
+
+    <!--  end side bar content -->
+    <!-- center content -->
+    <div class="container-fluid m-3">
+      <router-outlet></router-outlet>
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-muted">© 2021 Company, Inc</p>
+
+          <a href="/"
+            class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          </ul>
+        </footer>
+      </div>
+    </div>
+
+    <!--END center content -->
+  </div>
+</article>
+
+<!-- side bar -->

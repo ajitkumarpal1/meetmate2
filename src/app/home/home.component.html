@@ -1,0 +1,48 @@
+<div class="card m-3 bg-white">
+  <div class="text-center mt-2">
+    <h1><u>Products</u></h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-3 col-md-4 col-sm-12 card-group" style="min-width: 300px;" *ngFor="let c of product; let i = index">
+      <div class="card text-center m-3 d-flex overflow-hidden" routerLink="/product" [queryParams]="{productID :c.productID}">
+        <div class="card-header row">
+          <div class="col">
+            <img style="width: 35px;aspect-ratio: 1 / 1;" class="rounded-circle col" src="{{c.user.profil_pic}}" alt="" srcset="">
+            <b class="col mx-2">{{c.user.full_name}}</b>
+          </div>
+        </div>
+        <div class="card-body">
+          <div style="aspect-ratio: 1 / 1;">
+            <img class="rounded m-2 w-100" src="{{c.pic}}" alt="Photo of a Shiba Inu">
+          </div>
+          <h5 class="card-title"><b>Product :- </b>{{c.product_name}}</h5>
+          <p class="card-text">{{c.product_details}}</p>
+        </div>
+        <div class="card-footer text-muted">
+          Click for more
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- <div class="example-content" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+    <mat-card class="example-card" *ngFor="let c of product; let i = index">
+      <div style="height: 400px;width: 300px;" routerLink="/product" [queryParams]="{productID :c.productID}">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" fxLayoutAlign.xs="center center"></div>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>{{c.product_name}}</mat-card-subtitle>
+        </mat-card-header>
+        <div>
+          <img style="max-width:290px;max-height: 380px;display: block;margin-left: auto;margin-right: auto;"
+            mat-card-image src="{{c.pic}}" alt="Photo of a Shiba Inu">
+        </div>
+        <mat-card-content>
+          <p style="width: 40ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: auto;">
+            {{c.product_details}}
+          </p>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div> -->

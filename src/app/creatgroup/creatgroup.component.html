@@ -1,0 +1,42 @@
+<div class="w3agile">
+    <section class="panel">
+  
+        <h4 class="gen-case">Group name
+            <input #group_name (change)="saverange(group_name.value)" [(ngModel)]="group_nname"type="text" class="form-control " placeholder="Search Mail"></h4>
+        <header class="panel-heading wht-bg">
+           <h4 class="gen-case">Enter user email
+            <div action="#" class="pull-right mail-src-position">
+                <div class="input-append">
+                    <input #mail value="input" [(ngModel)]="input" ngModel type="text" class="form-control " placeholder="Search Mail">
+                </div>
+                <button (click)="add(mail.value)"> Add</button>
+            </div>
+           </h4>
+        </header>
+        <div *ngFor="let c of adduser.reverse(); let i = index" class="panel-body minimal">
+            <div class="mail-option">
+                   
+            </div>
+            <div class="table-inbox-wrap ">
+                <table class="table table-inbox table-hover">
+            <tbody>
+            <tr class="unread">
+                <td class="inbox-small-cells">
+                    <img style="width:50px;border-radius: 50%;" alt="" src="{{c.profil_pic}}">
+                </td>
+                <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                <td class="view-message  dont-show"><a href="#">{{c.full_name}}++{{c.userID}}</a></td>
+                <td class="view-message "><a href="#">Lorem ipsum dolor imit set.</a></td>
+                <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                <td class="view-message  text-right">12.10 AM</td>
+            </tr>
+            
+            </tbody>
+            </table>
+
+            </div>
+        </div>
+        <button (click)="create_group()"> Creat Group</button>
+     
+    </section>
+</div>

@@ -1,0 +1,45 @@
+<mat-tab-group>
+  <mat-tab label="Users">
+    <ul class="row m-5 d-flex justify-content-center">
+      <li class="col-md-3 col-lg-4 col-sm-12 p-4 d-block" style="min-width: 300px;" *ngFor="let c of user; let i = index">
+        <div class="card" routerLink="/viewprofile" [queryParams]="{userid:c.userID}">
+            <img  style="width: 40px;height: 40px;border-radius: 100%;"  mat-card-image src="{{c.profil_pic}}"
+            alt="Photo of a Shiba Inu">
+            <div>
+              <b>Name:- </b>{{c.full_name}}
+              <br>
+              <b>Email:- </b>{{c.email}}
+            </div> 
+        </div>
+      </li>
+      <button class="btn btn-light m-3" (click)="lode_user()">more</button>
+    </ul>
+  </mat-tab>
+  <mat-tab label="Products">
+    <div class="example-content card-group" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+      <mat-card style="min-width: 200px;aspect-ratio: 1 / 1;" class="example-card d-flex m-3 card" *ngFor="let c of product; let i = index">
+        <div routerLink="/product" [queryParams]="{productID :c.productID}">
+          <img mat-card-image src="{{c.product_pic}}" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+              {{c.product_name}}
+            </p>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+    <button (click)="lode_product()">more</button>
+  </mat-tab>
+  <mat-tab label="Post">
+    <div class="example-content card-group" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+      <mat-card class="example-card d-flex m-3 card" style="min-width: 300px;" *ngFor="let c of post; let i = index">
+        <div routerLink="/viewpost" [queryParams]="{postID :c.sr_no}"><!-- routerLink="/viewpost" [queryParams]="{productID :c.productID}" -->
+          <div [innerHTML]="c.post" style="overflow: auto;aspect-ratio: 1 / 2">
+
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <button (click)="lode_post()">more</button>
+  </mat-tab>
+</mat-tab-group>

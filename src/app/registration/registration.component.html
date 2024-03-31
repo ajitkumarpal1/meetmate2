@@ -1,0 +1,79 @@
+<mat-card>
+        <h1>Register Now</h1>
+            <form class="example-form" #rdata= "ngForm" (ngSubmit)="registration(rdata.value)" method="post" >
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input matInput ngModel type="text"  name="name" placeholder="NAME" required="">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput ngModel type="email"  name="email" placeholder="E-MAIL" required="">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Phone</mat-label>
+                    <input matInput ngModel type="number"  name="phone" placeholder="PHONE" required=""> 
+                </mat-form-field>
+                
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput ngModel [type]="hide ? 'password' : 'text'"  name="password" placeholder="PASSWORD" required="">
+                    <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </a>
+                </mat-form-field>
+                <div class="clearfix"></div>
+                <button mat-raised-button color="primary"  type="submit">Submit</button>
+                
+            </form>
+            <p>Already Registered.<a routerLink="/login">Login</a></p>
+            
+</mat-card>
+
+
+<!-- 
+<mat-card>
+    <form class="example-form" #f="ngForm" (ngSubmit)="loginaction(f)">
+        <h1 >Login</h1>
+        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        
+        <input name="email" ngModel matInput [errorStateMatcher]="matcher"
+                placeholder="Ex. pat@example.com" type="email">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            
+        <mat-label>Enter your password</mat-label>
+        <input [(ngModel)]="pt" name="password" ngModel password matInput [type]="hide ? 'password' : 'text'">
+        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </a>
+            
+            <mat-hint *ngIf="pt.length<8">
+                Password should bigger than 7 characters
+            </mat-hint>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <div class="row">
+            <div class="form-check col-md-6 text-sm-left text-center">
+            </div>
+            <div class="forgot col-md-6 text-sm-right text-center">
+                <a routerLink = "/">Skip-></a>
+            </div>
+        </div>
+    
+        <button mat-raised-button color="primary"  type="submit" name="login">Login</button>
+        <p>Don't Have an Account ?<a routerLink="/registration">Create an account</a></p>
+    </form>
+</mat-card>
+
+
+ -->

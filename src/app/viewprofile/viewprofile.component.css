@@ -1,0 +1,17 @@
+.user-list {
+    margin-top: 20px;
+  }
+
+  .user-list .media {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .user-list .media img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 64px;
+    height: 64px;
+  }

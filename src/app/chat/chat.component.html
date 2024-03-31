@@ -1,0 +1,67 @@
+
+
+<section class="form-w3layouts">
+  <div class="form-group">
+    <label class="col-sm-3 control-label " for="inputSuccess">Group name</label>
+    <div class="col-sm-6">
+    <select #selectg (change)="active_group(select_group)" name="profil_type" [(ngModel)]="select_group" ngModel class="form-control">
+        <option  *ngFor="let i of group_list" [ngValue]="i.group_id">{{i.group_name}} (criated by {{i.full_name}}) </option>
+    </select>
+
+
+
+
+
+
+
+    </div>
+  </div>
+    <header class="msger-header">
+      <div class="msger-header-title">
+        <i class="fas fa-comment-alt"></i> Group name:-<b>{{select_group}}</b>
+      </div>
+      <!-- <div class="msger-header-options">
+        <span><i class="fas fa-cog"></i></span>
+      </div> -->
+    </header>
+<div *ngIf="select_group">
+    <main *ngFor="let c of chats" class="msger-chat">
+      <div *ngIf="userdata[0].userID!=c.member_id" class="msg left-msg">
+        
+         <img class="msg-img" src="{{c.profil_pic}}">
+  
+        <div style="background: #ddd;" class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">{{c.full_name}}</div>
+            <div class="msg-info-time">{{c.registration_date}}</div>
+          </div>
+  
+          <div class="msg-text">
+            {{c.comment}}
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="userdata[0].userID==c.member_id" class="msg right-msg">
+        <img  src="{{c.profil_pic}}" class="msg-img">
+  
+        <div style="background:#579ffb;" class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">{{c.full_name}}</div>
+            <div class="msg-info-time">{{c.registration_date}}</div>
+          </div>
+  
+          <div class="msg-text">
+            {{c.comment}}
+          </div>
+        </div>
+      </div>
+    </main>
+    
+  
+    <form  #ffile="ngForm"  method="post" class="msger-inputarea">
+      <textarea #comment  name="comment" type="text" class="msger-input" placeholder="Enter your message..."></textarea>
+      <input (click)="chat(comment.value)" type="submit" class="msger-send-btn">
+    </form>
+</div>
+  </section>

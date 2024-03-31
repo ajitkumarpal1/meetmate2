@@ -1,0 +1,132 @@
+<div (dblclick)="flag==0?like_unlike_froduct('like'):like_unlike_froduct('unlike')" class="card">
+  <div class="card-header">
+    <a class="justify-content-center" routerLink="/viewprofile" [queryParams]="{userid:product_userdata[0].userID}">
+      <img *ngIf="product_userdata[0].profil_pic " style="width: 30px;border-radius: 50%;" class="dropdown-toggle"
+        src="{{product_userdata[0].profil_pic}}" class="ecc-avatar" alt="Responsive image">
+      <img *ngIf="!product_userdata[0].profil_pic " class="dropdown-toggle" src="assets/images/1.png" class="ecc-avatar"
+        alt="Responsive image">
+      <b class="mx-3">{{product_userdata[0].full_name}}</b>
+    </a>
+  </div>
+  <div class="card-body overflow-hidden">
+    <div class="w3layouts-glyphicon">
+      <div class="slideshow-container ajitaa">
+        <!-- Full-width images with number and caption text -->
+        <div class="numbertext">{{show+1}} / {{picarry.length}}</div>
+        <div class="card" style="aspect-ratio: 1 / 1; height: 350px;margin-right: auto;margin-left: auto;">
+          <img class="rounded justify-content-center" src="{{picarry[show]}}">
+        </div>
+        <div style="opacity: 0.5;" class="text bg-dark bg-opacity-10">Caption Text</div>
+        <!-- Next and previous buttons -->
+        <div *ngIf="show!=0" class="prev" (click)="plusSlides(-1)">&#10094;</div>
+        <div *ngIf="show!=picarry.length-1" class="next" (click)="plusSlides(1)">&#10095;</div>
+      </div>
+      <i *ngIf="flag==0" class="fa fa-heart-o" (click)="like_unlike_froduct('like')" aria-hidden="true"></i>
+      <i *ngIf="flag==1" style="color: red;" (click)="like_unlike_froduct('unlike')" class="fa fa-heart"
+        aria-hidden="true"></i>
+      <a> like</a>
+      <br>
+      <br>
+      <i class="fa fa-commenting" (click)="sms()" aria-hidden="true"></i>
+      <a> send message of product intrest in product</a>
+      <div style="text-align:center">
+        <span *ngFor="let c of picarry; let i = index" class="dot" (click)="currentSlide(i)"></span>
+      </div>
+      <h2>Product name<b>:-</b><a>{{product.product_name}}</a></h2>
+      <h2>Product dital<b>:-</b><a [innerHTML]="det"></a></h2>
+      <h2>Product mrp<b>:-</b><a>{{product.mrp}}</a></h2>
+      <h2>Product retail_price<b>:-</b><a>{{product.retail_price}}</a></h2>
+      <h2>Product product_fild<b>:-</b><a>{{product.product_fild}}</a></h2>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    Footer
+  </div>
+</div>
+
+
+<div class="container my-5 py-5 text-dark">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-6">
+      <div class="card">
+        <div class="card-body p-4">
+          <div class="d-flex flex-start w-100">
+
+            <img *ngIf="userdata[0].profil_pic " class="rounded-circle shadow-1-strong me-3"
+              src="{{userdata[0].profil_pic}}" alt="avatar" width="65" height="65" />
+            <img *ngIf="!userdata[0].profil_pic" class="rounded-circle shadow-1-strong me-3" src="assets/images/2.png"
+              alt="avatar" width="65" height="65" />
+
+            <div class="w-100">
+
+              <h2>{{userdata[0].full_name}}</h2>
+              <h5>Add a comment</h5>
+              <ul class="rating mb-3" data-mdb-toggle="rating">
+                <span class="fa fa-star" (click)="ratingf(1)" [ngClass]="{'checked': rating>=1}"></span>
+                <span class="fa fa-star" (click)="ratingf(2)" [ngClass]="{'checked': rating>=2}"></span>
+                <span class="fa fa-star" (click)="ratingf(3)" [ngClass]="{'checked': rating>=3}"></span>
+                <span class="fa fa-star" (click)="ratingf(4)" [ngClass]="{'checked': rating>=4}"></span>
+                <span class="fa fa-star" (click)="ratingf(5)" [ngClass]="{'checked': rating>=5}"></span>
+              </ul>
+              <form #comm="ngForm" (ngSubmit)="insert(comm.value)" method="post">
+                <div class="form-outline">
+                  <textarea name="comment" ngModel rows="4" class="form-control"></textarea>
+                  <label class="form-label" for="textAreaExample">What is your view?</label>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                  <button style="margin-left: auto;" type="submit" class="btn btn-success">
+                    Send <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section style="background-color: #f7f6f6;">
+  <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+
+        <div *ngFor="let c of ratinglist" class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex flex-start">
+              <img *ngIf="c.profil_pic" class="rounded-circle shadow-1-strong me-3" src="{{c.profil_pic}}" alt="avatar"
+                width="40" height="40" />
+              <img *ngIf="!c.profil_pic" class="rounded-circle shadow-1-strong me-3" src="assets/images/2.png"
+                alt="avatar" width="40" height="40" />
+              <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-primary fw-bold mb-0">
+                    {{c.full_name}}
+                    <span class="text-dark ms-2">{{c.comment}}</span>
+                  </h6>
+                  <p class="mb-0">2 days ago</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="small mb-0" style="color: #aaa;">
+                    <a href="#!" class="link-grey">Remove</a> •
+                    <a href="#!" class="link-grey">Reply</a> •
+                    <a href="#!" class="link-grey">Translate</a>
+                  </p>
+                  <div class="d-flex flex-row">
+                    <span class="fa fa-star" [ngClass]="{'checked': c.rating>=1}"></span>
+                    <span class="fa fa-star" [ngClass]="{'checked': c.rating>=2}"></span>
+                    <span class="fa fa-star" [ngClass]="{'checked': c.rating>=3}"></span>
+                    <span class="fa fa-star" [ngClass]="{'checked': c.rating>=4}"></span>
+                    <span class="fa fa-star" [ngClass]="{'checked': c.rating>=5}"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

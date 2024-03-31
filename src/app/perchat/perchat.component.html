@@ -1,0 +1,73 @@
+
+
+
+
+
+<section class="form-w3layouts row">
+  <div *ngIf="1==1" class="col-sm-4">
+    <div class="form-group">
+      <input class="form-control">
+    </div>
+    <br>
+    <div *ngFor="let c of pm_note" class="list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
+      <a routerLink="/personal_message" [queryParams]= "{userid:c.userID}">
+        <li class="list-item">
+          <div>
+            <img src="{{c.profil_pic}}" class="list-item-image">
+          </div>
+          <div class="list-item-content">
+            <h4>{{c.full_name}}</h4>
+            <p>{{c.pm}}</p>
+          </div>
+        </li>
+      </a>
+    </div>
+  </div>
+  <div [ngClass]="1==1 ? 'col-sm-8' : 'col-sm-0'">
+    
+      <header class="list-item header">
+        <div>
+          <img src="{{fuser[0].profil_pic}}" class="list-item-image">
+        </div>
+        <div class="list-item-content">
+          <h4>{{fuser[0].full_name}}</h4>
+          <p>{{fuser[0].email}}</p>
+        </div>
+      </header>
+      <div>
+          <main *ngFor="let c of chat">
+            <div *ngIf="userdata[0].userID!=c.send_id">
+              <div style="background: #ddd;" class="msg-bubble">
+                <div class="msg-info">
+                  <div class="msg-info-time">{{c.time}}</div>
+                </div>
+        
+                <div class="msg-text">
+                  {{c.pm}}
+                </div>
+              </div>
+            </div>
+        
+            <div *ngIf="userdata[0].userID==c.send_id" class="msg right-msg">
+        
+              <div style="background:#579ffb;" class="msg-bubble">
+                <div class="msg-info">
+                  <div class="msg-info-time">{{c.time}}</div>
+                </div>
+        
+                <div class="msg-text">
+                  {{c.pm}}
+                </div>
+              </div>
+            </div>
+            <br>
+          </main>
+          
+        
+          <form  #ffile="ngForm"  method="post" class="msger-inputarea">
+            <textarea #comment  name="comment" type="text" class="msger-input" placeholder="Enter your message..."></textarea>
+            <input (click)="sms(comment.value)" type="submit" class="msger-send-btn">
+          </form>
+      </div>
+  </div>
+    </section>
